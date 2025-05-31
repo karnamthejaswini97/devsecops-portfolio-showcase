@@ -61,9 +61,24 @@ const Index = () => {
 
   const experiences = [
     {
+      company: 'Medical Mutual',
+      role: 'Senior Cloud DevSecOps Engineer',
+      duration: '11/2023 – Present',
+      location: 'Columbus, Ohio',
+      description: [
+        'Lead DevSecOps transformation initiatives across multi-cloud environments (AWS & Azure)',
+        'Architect and implement zero-trust security frameworks within CI/CD pipelines',
+        'Design automated security compliance workflows using Infrastructure as Code (Terraform)',
+        'Integrate advanced security scanning tools (SAST, DAST, SCA) into development lifecycle',
+        'Mentor development teams on secure coding practices and shift-left security principles',
+        'Orchestrate container security strategies using Kubernetes and Docker with security scanning',
+        'Develop security-first automation scripts using Python and Bash for incident response'
+      ]
+    },
+    {
       company: 'Strategic Systems Inc',
       role: 'AWS Cloud DevSecOps Engineer',
-      duration: '04/2022 – Present',
+      duration: '04/2022 – 10/2023',
       location: 'Columbus, Ohio',
       description: [
         'Built secure CI/CD pipelines for .NET and Java applications using Azure DevOps & Jenkins',
