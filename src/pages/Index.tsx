@@ -1,62 +1,28 @@
-
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { ChevronUp, ExternalLink, Download, Mail, Phone, MapPin, Calendar, Building, Award, Code, User, MessageCircle, Github, Linkedin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/hooks/use-toast';
-import { Separator } from '@/components/ui/separator';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, Phone, Download, ExternalLink, MapPin } from "lucide-react";
 
 const Index = () => {
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
-      
-      // Update active section based on scroll position
-      const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const skills = [
-    { name: 'CI/CD', category: 'DevOps' },
-    { name: 'DevSecOps', category: 'Security' },
     { name: 'AWS', category: 'Cloud' },
     { name: 'Azure', category: 'Cloud' },
+    { name: 'DevSecOps', category: 'Security' },
     { name: 'Terraform', category: 'IaC' },
-    { name: 'Jenkins', category: 'DevOps' },
-    { name: 'Python', category: 'Programming' },
-    { name: 'Bash', category: 'Programming' },
+    { name: 'Jenkins', category: 'CI/CD' },
+    { name: 'Docker', category: 'Containers' },
     { name: 'Kubernetes', category: 'Orchestration' },
-    { name: 'Docker', category: 'Containerization' }
+    { name: 'Python', category: 'Programming' },
+    { name: 'Bash', category: 'Scripting' },
+    { name: 'Veracode', category: 'Security' },
   ];
 
   const experiences = [
@@ -82,346 +48,290 @@ const Index = () => {
       location: 'Columbus, Ohio',
       description: [
         'Built secure CI/CD pipelines for .NET and Java applications using Azure DevOps & Jenkins',
-        'Implemented Veracode scans (SAST, DAST, SCA) into release cycles',
-        'Migrated applications from on-premises to AWS with CloudFormation & DMS',
-        'Developed Grafana dashboards using CloudWatch metrics'
+        'Implemented Veracode security scans (SAST, DAST, SCA) into release cycles',
+        'Migrated applications from on-premises to AWS using CloudFormation & DMS',
+        'Developed comprehensive Grafana dashboards using CloudWatch metrics',
+        'Automated infrastructure provisioning using Terraform and AWS CloudFormation'
       ]
     },
     {
-      company: 'EY Singapore',
-      role: 'Senior DevOps Engineer',
-      duration: '2021 – 2022',
+      company: 'Ernst & Young (EY)',
+      role: 'Cloud DevOps Engineer',
+      duration: '09/2021 – 03/2022',
       location: 'Singapore',
       description: [
-        'Led infrastructure automation initiatives for enterprise clients',
-        'Implemented security-first DevOps practices across multiple projects',
-        'Mentored junior engineers on cloud architecture best practices'
+        'Designed and implemented CI/CD pipelines for microservices architecture',
+        'Managed containerized applications using Docker and Kubernetes',
+        'Automated deployment processes across development, staging, and production environments',
+        'Collaborated with cross-functional teams to optimize development workflows'
       ]
     },
     {
       company: 'Edotco Malaysia',
-      role: 'Cloud Engineer',
-      duration: '2020 – 2021',
+      role: 'DevOps Engineer',
+      duration: '06/2020 – 08/2021',
       location: 'Kuala Lumpur, Malaysia',
       description: [
-        'Designed and implemented cloud infrastructure solutions',
-        'Automated deployment processes reducing deployment time by 60%',
-        'Collaborated with cross-functional teams on digital transformation initiatives'
+        'Implemented infrastructure automation using Terraform and Ansible',
+        'Managed AWS cloud infrastructure and cost optimization initiatives',
+        'Developed monitoring and alerting solutions using CloudWatch and Grafana',
+        'Streamlined deployment processes reducing deployment time by 60%'
       ]
     }
   ];
 
   const projects = [
     {
-      title: 'Secure Migration to AWS',
+      title: 'Secure AWS Migration',
       description: 'Designed automated AWS migration strategy using Infrastructure as Code and security best practices',
-      tags: ['AWS', 'CloudFormation', 'DevSecOps', 'Migration'],
-      impact: 'Reduced infrastructure provisioning time by 75%'
+      tags: ['AWS', 'CloudFormation', 'DevSecOps', 'Terraform']
     },
     {
-      title: 'CI/CD Pipeline Optimization',
-      description: 'Implemented comprehensive CI/CD pipelines with integrated security scanning',
-      tags: ['Jenkins', 'Veracode', 'Azure DevOps', 'Security'],
-      impact: 'Improved deployment frequency by 300%'
+      title: 'CI/CD Security Pipeline',
+      description: 'Implemented comprehensive security scanning pipeline with SAST, DAST, and SCA integration',
+      tags: ['Jenkins', 'Veracode', 'Security', 'Azure DevOps']
     },
     {
-      title: 'Infrastructure as Code Framework',
-      description: 'Built reusable Terraform modules for standardized cloud deployments',
-      tags: ['Terraform', 'AWS', 'IaC', 'Automation'],
-      impact: 'Standardized infrastructure across 50+ projects'
+      title: 'Zero-Trust Architecture',
+      description: 'Architected zero-trust security framework for multi-cloud environments',
+      tags: ['Security', 'AWS', 'Azure', 'Kubernetes']
     }
   ];
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.message.length < 30) {
-      toast({
-        title: "Message too short",
-        description: "Please provide at least 30 characters in your message.",
-        variant: "destructive"
-      });
-      return;
+  const education = [
+    {
+      degree: 'B.Tech in Electronics & Communication Engineering',
+      institution: 'GITAM University',
+      location: 'Bengaluru, India',
+      year: '2018'
     }
-    
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon."
-    });
-    
-    setFormData({ name: '', email: '', message: '' });
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 z-50 origin-left"
-        style={{ scaleX }}
-      />
-
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 w-full bg-white/80 backdrop-blur-lg border-b border-purple-100 z-50"
+      >
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
             <motion.h1 
-              className="text-xl font-bold text-gray-900"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
             >
               Thejaswini Karnam
             </motion.h1>
-            
-            <div className="hidden md:flex space-x-8">
-              {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-colors ${
-                    activeSection === item.toLowerCase() 
-                      ? 'text-blue-600' 
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
+            <div className="hidden md:flex space-x-6">
+              {['about', 'skills', 'experience', 'projects', 'contact'].map((section) => (
+                <motion.button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className="text-gray-600 hover:text-purple-600 transition-colors capitalize font-medium"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item}
-                </button>
+                  {section}
+                </motion.button>
               ))}
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Hero Section */}
-      <section id="hero" className="pt-24 pb-16 px-6">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="pt-24 pb-16 px-4">
+        <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="mb-8"
           >
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full shadow-lg overflow-hidden">
-              <img 
-                src="/lovable-uploads/0565f0f1-8f85-4a52-a844-fde73aa5377c.png" 
+            <div className="relative inline-block mb-6">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-lg opacity-30 animate-pulse"></div>
+              <img
+                src="/lovable-uploads/0565f0f1-8f85-4a52-a844-fde73aa5377c.png"
                 alt="Thejaswini Karnam"
-                className="w-full h-full object-cover"
+                className="relative w-48 h-48 rounded-full object-cover shadow-2xl border-4 border-white"
               />
             </div>
-            
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
               Thejaswini Karnam
             </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 mb-2">
-              Cloud DevSecOps Engineer | AWS & Azure Certified
+            <p className="text-xl md:text-2xl text-gray-700 mb-4 font-medium">
+              Senior Cloud DevSecOps Engineer
             </p>
-            
-            <div className="flex items-center justify-center text-gray-500 mb-8">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span>Columbus, Ohio</span>
+            <div className="flex items-center justify-center text-gray-600 mb-2">
+              <MapPin className="h-5 w-5 mr-2 text-purple-500" />
+              <span className="text-lg">Columbus, Ohio</span>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Linkedin className="w-4 h-4 mr-2" />
-                View LinkedIn
-              </Button>
-              <Button size="lg" variant="outline">
-                <Download className="w-4 h-4 mr-2" />
-                Download Resume
-              </Button>
-              <Button size="lg" variant="outline">
-                <Github className="w-4 h-4 mr-2" />
-                GitHub
-              </Button>
-            </div>
+            <p className="text-lg text-gray-600 mb-8">
+              AWS & Azure Certified | 5+ Years Experience
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <Button 
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              size="lg"
+            >
+              <Linkedin className="mr-2 h-5 w-5" />
+              View LinkedIn
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="border-purple-300 text-purple-600 hover:bg-purple-50 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download Resume
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="border-pink-300 text-pink-600 hover:bg-pink-50 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Github className="mr-2 h-5 w-5" />
+              GitHub
+            </Button>
           </motion.div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section id="about" className="py-16 px-4 bg-gradient-to-r from-purple-50 to-pink-50">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              About Me
+            </h2>
+            <div className="max-w-4xl mx-auto">
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                I'm a certified Cloud DevSecOps Engineer with over 5 years of experience delivering secure, 
+                automated CI/CD pipelines across AWS and Azure environments. I specialize in enabling DevSecOps 
+                culture, infrastructure as code, and continuous delivery excellence.
+              </p>
+              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                My work spans regulated industries where security and speed must co-exist. I thrive in 
+                cross-functional teams and help organizations shift left by implementing secure pipelines 
+                using tools like Veracode, Jenkins, Terraform, and Docker.
+              </p>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-12 items-center"
+            className="flex flex-wrap justify-center gap-3"
           >
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">About Me</h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                I'm a certified Cloud DevSecOps Engineer with over 5 years of experience delivering secure, automated CI/CD pipelines across AWS and Azure environments. I specialize in enabling DevSecOps culture, infrastructure as code, and continuous delivery excellence.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                My work spans regulated industries where security and speed must co-exist. I thrive in cross-functional teams and help organizations shift left by implementing secure pipelines using tools like Veracode, Jenkins, Terraform, and Docker.
-              </p>
-              
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <Badge key={index} variant="secondary" className="px-3 py-1">
-                    {skill.name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Award className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">5+ Years</h3>
-                    <p className="text-gray-600">Experience</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Code className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Multiple</h3>
-                    <p className="text-gray-600">Cloud Certifications</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Building className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Enterprise</h3>
-                    <p className="text-gray-600">Scale Projects</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {skills.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1 }}
+              >
+                <Badge 
+                  variant="secondary" 
+                  className="text-sm py-2 px-4 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 border-0 shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  {skill.name}
+                </Badge>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* Skills & Certifications */}
-      <section id="skills" className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section id="skills" className="py-16 px-4">
+        <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Skills & Certifications</h2>
-            <p className="text-lg text-gray-600">Technologies and tools I work with</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Skills & Certifications
+            </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-blue-600">Cloud Providers</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>AWS (EC2, ECS, EKS, Lambda, RDS)</li>
-                <li>Microsoft Azure</li>
-                <li>AWS GuardDuty & WAF</li>
-              </ul>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-green-600">DevOps Tools</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>Jenkins, Azure DevOps</li>
-                <li>XL Deploy, XL Release</li>
-                <li>GitHub, Bitbucket, Nexus</li>
-              </ul>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-purple-600">Security</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>Veracode (SAST, DAST, SCA)</li>
-                <li>AWS Security Services</li>
-                <li>DevSecOps Implementation</li>
-              </ul>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-orange-600">Infrastructure as Code</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>Terraform</li>
-                <li>AWS CloudFormation</li>
-                <li>Configuration Management</li>
-              </ul>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-red-600">Languages</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>Bash, Python</li>
-                <li>YAML, JSON</li>
-                <li>PowerShell</li>
-              </ul>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4 text-indigo-600">Certifications</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>AWS Certified</li>
-                <li>Microsoft Azure Certified</li>
-                <li>Terraform Associate</li>
-              </ul>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience */}
-      <section id="experience" className="py-16 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Professional Experience</h2>
-            <p className="text-lg text-gray-600">My journey in Cloud DevSecOps</p>
-          </motion.div>
-
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
+            {[
+              {
+                title: 'Cloud Providers',
+                skills: ['AWS (EC2, ECS, EKS, Lambda, RDS)', 'Microsoft Azure', 'Multi-cloud Architecture'],
+                color: 'from-blue-400 to-cyan-400'
+              },
+              {
+                title: 'DevOps Tools',
+                skills: ['Jenkins', 'Azure DevOps', 'XL Deploy', 'XL Release', 'GitHub', 'Bitbucket'],
+                color: 'from-purple-400 to-pink-400'
+              },
+              {
+                title: 'Security',
+                skills: ['Veracode (SAST, DAST, SCA)', 'AWS GuardDuty', 'AWS WAF', 'Zero-Trust Architecture'],
+                color: 'from-pink-400 to-rose-400'
+              },
+              {
+                title: 'Infrastructure as Code',
+                skills: ['Terraform', 'AWS CloudFormation', 'Ansible', 'Infrastructure Automation'],
+                color: 'from-green-400 to-emerald-400'
+              },
+              {
+                title: 'Languages & Scripting',
+                skills: ['Python', 'Bash', 'YAML', 'JSON', 'PowerShell'],
+                color: 'from-orange-400 to-amber-400'
+              },
+              {
+                title: 'Certifications',
+                skills: ['AWS Certified', 'Microsoft Azure Certified', 'Terraform Associate', 'DevSecOps Certified'],
+                color: 'from-violet-400 to-purple-400'
+              }
+            ].map((category, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                key={category.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
               >
-                <Card className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900">{exp.role}</h3>
-                      <p className="text-lg text-blue-600 font-medium">{exp.company}</p>
-                      <div className="flex items-center text-gray-500 mt-1">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        <span className="mr-4">{exp.duration}</span>
-                        <MapPin className="w-4 h-4 mr-2" />
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <ul className="space-y-2">
-                    {exp.description.map((item, i) => (
-                      <li key={i} className="text-gray-600 flex items-start">
-                        <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-white/70 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className={`text-xl bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
+                      {category.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {category.skills.map((skill) => (
+                        <li key={skill} className="text-gray-700 flex items-center">
+                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${category.color} mr-3`}></div>
+                          {skill}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
                 </Card>
               </motion.div>
             ))}
@@ -429,44 +339,121 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects */}
-      <section id="projects" className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
+      {/* Experience Timeline */}
+      <section id="experience" className="py-16 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-            <p className="text-lg text-gray-600">Some of my notable work</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Professional Experience
+            </h2>
+          </motion.div>
+
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={exp.company}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-white/70 backdrop-blur-sm">
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                          {exp.company}
+                        </CardTitle>
+                        <CardDescription className="text-lg font-medium text-gray-700 mt-1">
+                          {exp.role}
+                        </CardDescription>
+                        <div className="flex items-center mt-2 text-gray-600">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {exp.location}
+                        </div>
+                      </div>
+                      <Badge className="bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-0">
+                        {exp.duration}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="text-gray-700 flex items-start">
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 mr-3 mt-2 flex-shrink-0"></div>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-16 px-4">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              Featured Projects
+            </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+                key={project.title}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, i) => (
-                        <Badge key={i} variant="outline" className="text-xs">
+                <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-purple-50/50">
+                  <CardHeader>
+                    <CardTitle className="text-xl bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      {project.title}
+                    </CardTitle>
+                    <CardDescription className="text-gray-700">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <Badge 
+                          key={tag} 
+                          variant="secondary"
+                          className="bg-gradient-to-r from-pink-100 to-purple-100 text-purple-700 border-0"
+                        >
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    
-                    <div className="text-sm text-green-600 font-medium">
-                      Impact: {project.impact}
-                    </div>
+                    <Button 
+                      className="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white"
+                      size="sm"
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View Details
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -476,161 +463,179 @@ const Index = () => {
       </section>
 
       {/* Education */}
-      <section id="education" className="py-16 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-16 px-4 bg-gradient-to-r from-pink-50 to-purple-50">
+        <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Education</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              Education
+            </h2>
           </motion.div>
 
-          <Card className="p-8">
-            <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Award className="w-8 h-8 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900">
-                  B.Tech in Electronics & Communication Engineering
-                </h3>
-                <p className="text-lg text-blue-600">GITAM University</p>
-                <p className="text-gray-600">Bengaluru, India • 2018</p>
-              </div>
-            </div>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto"
+          >
+            <Card className="shadow-lg border-0 bg-white/70 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-2xl bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  {education[0].degree}
+                </CardTitle>
+                <CardDescription className="text-lg">
+                  <div className="text-gray-700 font-medium">{education[0].institution}</div>
+                  <div className="flex items-center mt-1 text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {education[0].location} • {education[0].year}
+                  </div>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
+      {/* Contact Section */}
+      <section id="contact" className="py-16 px-4">
+        <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-            <p className="text-lg text-gray-600">Let's discuss opportunities and collaborations</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Get in Touch
+            </h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              I'm always interested in new opportunities and collaborations. 
+              Let's connect and discuss how we can work together!
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <Mail className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-600">karnamthejaswini97@gmail.com</span>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <Phone className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-600">614-600-9098</span>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <MapPin className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-600">Columbus, Ohio</span>
-                </div>
-              </div>
-              
-              <Separator className="my-6" />
-              
-              <div className="flex space-x-4">
-                <Button variant="outline" size="sm">
-                  <Linkedin className="w-4 h-4 mr-2" />
-                  LinkedIn
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </Button>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Card className="shadow-lg border-0 bg-gradient-to-br from-purple-50 to-pink-50">
+                <CardHeader>
+                  <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Contact Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center">
+                    <Mail className="h-5 w-5 mr-3 text-purple-500" />
+                    <span className="text-gray-700">karnamthejaswini97@gmail.com</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Phone className="h-5 w-5 mr-3 text-purple-500" />
+                    <span className="text-gray-700">614-600-9098</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-5 w-5 mr-3 text-purple-500" />
+                    <span className="text-gray-700">Columbus, Ohio</span>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <h4 className="font-semibold text-gray-800 mb-3">Connect with me:</h4>
+                    <div className="flex space-x-4">
+                      <Button 
+                        size="sm" 
+                        className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                      >
+                        <Linkedin className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        className="border-gray-300 hover:bg-gray-50"
+                      >
+                        <Github className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Input
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                />
-              </div>
-              
-              <div>
-                <Input
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  required
-                />
-              </div>
-              
-              <div>
-                <Textarea
-                  placeholder="Your message (minimum 30 characters)"
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  required
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  {formData.message.length}/30 characters minimum
-                </p>
-              </div>
-              
-              <Button type="submit" className="w-full">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Send Message
-              </Button>
-            </form>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Card className="shadow-lg border-0 bg-white/70 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Send a Message
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Name *
+                      </label>
+                      <input 
+                        type="text" 
+                        required 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Email *
+                      </label>
+                      <input 
+                        type="email" 
+                        required 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Message *
+                      </label>
+                      <textarea 
+                        required 
+                        rows={4}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      ></textarea>
+                    </div>
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                    >
+                      Send Message
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-2xl font-bold mb-4">Thejaswini Karnam</h3>
-          <p className="text-gray-400 mb-6">Cloud DevSecOps Engineer</p>
-          
-          <div className="flex justify-center space-x-6 mb-8">
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-              <Linkedin className="w-5 h-5" />
-            </Button>
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-              <Github className="w-5 h-5" />
-            </Button>
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-              <Mail className="w-5 h-5" />
-            </Button>
-          </div>
-          
-          <Separator className="mb-6 bg-gray-700" />
-          
-          <p className="text-gray-400 text-sm">
+      <footer className="bg-gradient-to-r from-purple-900 to-pink-900 text-white py-8 px-4">
+        <div className="container mx-auto text-center">
+          <p className="text-purple-200">
             © 2024 Thejaswini Karnam. All rights reserved.
           </p>
         </div>
       </footer>
-
-      {/* Back to Top Button */}
-      {showBackToTop && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-40"
-        >
-          <ChevronUp className="w-5 h-5" />
-        </motion.button>
-      )}
     </div>
   );
 };
