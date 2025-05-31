@@ -28,7 +28,7 @@ const Index = () => {
   const experiences = [
     {
       company: 'Medical Mutual',
-      role: 'Senior Cloud DevSecOps Engineer',
+      role: 'Cloud DevSecOps Engineer',
       duration: '11/2023 – Present',
       location: 'Columbus, Ohio',
       description: [
@@ -161,7 +161,7 @@ const Index = () => {
               Thejaswini Karnam
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-4 font-medium">
-              Senior Cloud DevSecOps Engineer
+              Cloud DevSecOps Engineer
             </p>
             <div className="flex items-center justify-center text-gray-600 mb-2">
               <MapPin className="h-5 w-5 mr-2 text-purple-500" />
@@ -538,10 +538,6 @@ const Index = () => {
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 mr-3 text-purple-500" />
                     <span className="text-gray-700">karnamthejaswini97@gmail.com</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Phone className="h-5 w-5 mr-3 text-purple-500" />
-                    <span className="text-gray-700">614-600-9098</span>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="h-5 w-5 mr-3 text-purple-500" />
