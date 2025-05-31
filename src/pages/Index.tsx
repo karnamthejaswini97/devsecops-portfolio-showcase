@@ -189,7 +189,13 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="w-32 h-32 mx-auto mb-8 bg-gray-200 rounded-full shadow-lg"></div>
+            <div className="w-32 h-32 mx-auto mb-8 rounded-full shadow-lg overflow-hidden">
+              <img 
+                src="/lovable-uploads/0565f0f1-8f85-4a52-a844-fde73aa5377c.png" 
+                alt="Thejaswini Karnam"
+                className="w-full h-full object-cover"
+              />
+            </div>
             
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
               Thejaswini Karnam
